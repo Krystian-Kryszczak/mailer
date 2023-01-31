@@ -1,0 +1,28 @@
+micronaut:
+  application:
+    name: mailer
+  router:
+    static-resources:
+      default:
+        enabled: true
+        mapping: "/views/**"
+        paths: classpath:data
+grpc:
+  server:
+    port: ${MAILER_GRPC_PORT:50011}
+    max-inbound-message-size: 1024
+javamail:
+  enabled: true
+  authentication:
+    username: ${MAILER_ADDRESS}
+    password: ${MAILER_ADDRESS_PASSWORD}
+  properties:
+    mail:
+      smtp:
+        host: ${MAILER_HOST:smtp.gmail.com}
+        port: ${MAILER_PORT:465} # or 587
+        ssl:
+          enable: true
+kafka:
+  bootstrap:
+    servers: ${KAFKA_HOST:127.0.0.1}:${KAFKA_PORT:9092}

@@ -1,0 +1,6 @@
+applicationType: grpc
+defaultPackage: app
+testFramework: kotest
+sourceLanguage: kotlin
+buildTool: gradle
+features: [annotation-api, app-name, email-javamail, email-template, gradle, grpc, jackson-databind, kafka, kotest, kotlin, kotlin-application, kotlin-build, logback, micronaut-build, reactor, readme, test-resources, yaml]

@@ -1,0 +1,1 @@
+<html><body><h1>User $author uploaded new video: <strong><a href="$videoUrl">$title</a></strong></h1></body></html>
