@@ -1,4 +1,4 @@
-package app.service.mail
+package app.service.mail.smtp
 
 import io.micronaut.email.BodyType
 import io.micronaut.email.Email
@@ -9,14 +9,25 @@ import io.micronaut.views.ModelAndView
 import jakarta.inject.Singleton
 
 @Singleton
-class MailServiceImpl(private val emailSender: EmailSender<Any, Any>): MailService {
+class SmtpEmailServiceImpl(private val emailSender: EmailSender<Any, Any>): SmtpEmailService {
     private val fromEmail: String = System.getenv("MAILER_ADDRESS")
     override fun send(to: String, subject: String, content: String) {
-        emailSender.send(Email.builder().from(fromEmail).to(to).subject(subject).body(content))
+        emailSender.send(
+            emailBuilderWithReceiverAndSubject(to, subject)
+                .body(content)
+        )
     }
     override fun send(to: String, subject: String, content: MultipartBody) {
-        emailSender.send(Email.builder().from(fromEmail).to(to).subject(subject).body(content))
+        emailSender.send(
+            emailBuilderWithReceiverAndSubject(to, subject)
+                .body(content)
+        )
     }
+    private fun emailBuilderWithReceiverAndSubject(to: String, subject: String): Email.Builder =
+        Email.builder()
+            .from(fromEmail)
+            .to(to)
+            .subject(subject)
     override fun sendUsingTemplate(to: String, subject: String, templateName: String, model: Map<String, String>) {
         send(to, subject,
             MultipartBody(
@@ -29,9 +40,9 @@ class MailServiceImpl(private val emailSender: EmailSender<Any, Any>): MailServi
         to, "Account activation code", "activate-account",
         mapOf("code" to activateCode)
     )
-    override fun sendResetPasswordCode(to: String, activateCode: String) = sendUsingTemplate(
+    override fun sendResetPasswordCode(to: String, resetPasswordCode: String) = sendUsingTemplate(
         to, "Code for reset your account password", "reset-password",
-        mapOf("code" to activateCode)
+        mapOf("code" to resetPasswordCode)
     )
     override fun sendNewVideoNotification(to: String, author: String, avatarUrl: String, title: String, videoUrl: String) = sendUsingTemplate(
         to, "$author uploaded new video...", "new-video",

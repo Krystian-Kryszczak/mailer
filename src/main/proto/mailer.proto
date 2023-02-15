@@ -7,11 +7,15 @@ option objc_class_prefix = "HLW";
 
 package app;
 
-service MailerService {
+service SmtpMailerService {
   rpc sendMail (SendMailRequest) returns (MailerReply) {}
   rpc sendUserActivationCode (MailerRequest) returns (MailerReply) {}
   rpc sendUserResetPasswordCode (MailerRequest) returns (MailerReply) {}
   rpc sendNewVideoNotification (NotificationRequest) returns (MailerReply) {}
+}
+
+service PopMailerService {
+  // TODO
 }
 
 message SendMailRequest {

@@ -19,8 +19,13 @@ javamail:
   properties:
     mail:
       smtp:
-        host: ${MAILER_HOST:smtp.gmail.com}
-        port: ${MAILER_PORT:465} # or 587
+        host: ${MAILER_SMTP_HOST:smtp.gmail.com}
+        port: ${MAILER_SMTP_PORT:587}
+        ssl:
+          enable: true
+      pop3:
+        host: ${MAILER_POP_HOST:pop.gmail.com}
+        port: ${MAILER_POP_PORT:995}
         ssl:
           enable: true
 kafka:

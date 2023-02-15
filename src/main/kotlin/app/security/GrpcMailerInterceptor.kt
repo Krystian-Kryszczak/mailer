@@ -6,7 +6,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 @Singleton
-class GrpcInterceptor: ServerInterceptor {
+class GrpcMailerInterceptor: ServerInterceptor {
     override fun <ReqT : Any, RespT : Any> interceptCall(
         call: ServerCall<ReqT, RespT>,
         headers: Metadata,
@@ -18,6 +18,6 @@ class GrpcInterceptor: ServerInterceptor {
     }
 
     companion object {
-        private val logger: Logger = LoggerFactory.getLogger(GrpcInterceptor::class.java)
+        private val logger: Logger = LoggerFactory.getLogger(GrpcMailerInterceptor::class.java)
     }
 }
