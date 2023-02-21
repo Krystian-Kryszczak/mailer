@@ -1,7 +1,7 @@
 package app.endpoints
 
-import app.MailerServiceGrpc
 import app.SendMailRequest
+import app.SmtpMailerServiceGrpc
 import app.security.GrpcMailerInterceptor
 import io.grpc.*
 import io.grpc.inprocess.InProcessChannelBuilder
@@ -58,7 +58,7 @@ class GrpcMailerEndpointTest(
         }
 
         val clientInterceptor = SpyingClientInterceptor()
-        val blockingStub: MailerServiceGrpc.MailerServiceBlockingStub = MailerServiceGrpc.newBlockingStub(channel)
+        val blockingStub: SmtpMailerServiceGrpc.SmtpMailerServiceBlockingStub = SmtpMailerServiceGrpc.newBlockingStub(channel)
             .withInterceptors(clientInterceptor)
         val metadataMockk = mockk<Metadata>()
 
