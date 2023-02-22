@@ -11,6 +11,13 @@ grpc:
   server:
     port: ${MAILER_GRPC_PORT:50011}
     max-inbound-message-size: 1024
+  client:
+    max-retry-attempts: 10
+  channels:
+    mailer:
+      for-address: ${MAILER_GRPC_HOST:127.0.0.1}:${MAILER_GRPC_PORT:50011}
+      plaintext: true
+      max-retry-attempts: 10
 javamail:
   enabled: true
   authentication:

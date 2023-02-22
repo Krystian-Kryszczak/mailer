@@ -13,7 +13,7 @@ import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import io.mockk.mockk
 
 @MicronautTest
-class GrpcMailerEndpointTest(
+class GrpcSmtpMailerEndpointTest(
     private val grpcMailerInterceptor: GrpcMailerInterceptor,
     private val grpcSmtpMailerEndpoint: GrpcSmtpMailerEndpoint,
 ) : StringSpec({

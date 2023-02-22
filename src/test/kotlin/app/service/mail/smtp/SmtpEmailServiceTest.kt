@@ -1,6 +1,5 @@
-package app.service.mail
+package app.service.mail.smtp
 
-import app.service.mail.smtp.SmtpEmailService
 import io.kotest.core.spec.style.StringSpec
 import io.micronaut.email.BodyType
 import io.micronaut.email.MultipartBody
@@ -9,11 +8,15 @@ import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import io.micronaut.views.ModelAndView
 
 @MicronautTest
-class MailServiceTest(private val smtpEmailService: SmtpEmailService) : StringSpec({
+class SmtpEmailServiceTest(private val smtpEmailService: SmtpEmailService) : StringSpec({
     val receiver: String = ""; // TODO change it
     val testingTemplateName = "testing"
 
     fun String.withTestSuffix(): String = "$this - Mailer service test"
+
+    "test" {
+        //
+    }
 
     "send (custom) using String content" {
         smtpEmailService.send(receiver, "Custom email using String content".withTestSuffix(), "Hello world!")
