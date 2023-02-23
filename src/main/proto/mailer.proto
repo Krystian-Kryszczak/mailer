@@ -36,11 +36,11 @@ message MailerReply {
 }
 
 service PopMailerService {
-  rpc searchMessages(FolderAndSubject) returns (EmailMessages) {}
-  rpc receiveMessages(Folder) returns (EmailMessages) {}
-  rpc receiveMessages2(FolderAndMsgNums) returns (EmailMessages) {}
-  rpc receiveMessages3(FolderAndStartAndEnd) returns (EmailMessages) {}
-  rpc receiveMessage4(FolderAndMsgNum) returns (EmailMessage) {}
+  rpc searchMessages(FolderAndSubject) returns (stream EmailMessage) {}
+  rpc receiveMessages(Folder) returns (stream EmailMessage) {}
+  rpc receiveMessagesNums(FolderAndMsgNums) returns (stream EmailMessage) {}
+  rpc receiveMessagesStartEnd(FolderAndStartAndEnd) returns (stream EmailMessage) {}
+  rpc receiveMessage(FolderAndMsgNum) returns (EmailMessage) {}
 }
 
 message FolderAndSubject {
@@ -70,7 +70,4 @@ message EmailMessage {
   string content = 3;
   int64 sentDate = 4;
   int64 receivedDate = 5;
-}
-message EmailMessages {
-  repeated EmailMessage messages = 1;
 }
