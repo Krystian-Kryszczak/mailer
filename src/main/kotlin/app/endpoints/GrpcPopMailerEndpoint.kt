@@ -4,8 +4,8 @@ import app.*
 import app.service.mail.pop.PopEmailService
 import io.grpc.stub.StreamObserver
 import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
 import jakarta.inject.Singleton
 import javax.mail.Message
@@ -37,7 +37,7 @@ class GrpcPopMailerEndpoint(private val popEmailService: PopEmailService): PopMa
     }
 
     override fun receiveMessage(request: FolderAndMsgNum, responseObserver: StreamObserver<EmailMessage>) {
-        popEmailService.receiveMessage(request.folder, request.msgnums)
+        popEmailService.receiveMessage(request.folder, request.msgnum)
             .mapMessageToGrpcEmailMessage()
             .toObservable()
             .subscribeToResponseObserver(responseObserver)
@@ -57,7 +57,7 @@ class GrpcPopMailerEndpoint(private val popEmailService: PopEmailService): PopMa
     private fun Flowable<EmailMessage>.subscribeToResponseObserver(responseObserver: StreamObserver<EmailMessage>): Disposable =
         subscribe(responseObserver::onNext, responseObserver::onError, responseObserver::onCompleted)
 
-    private fun Single<Message>.mapMessageToGrpcEmailMessage(): Single<EmailMessage> =
+    private fun Maybe<Message>.mapMessageToGrpcEmailMessage(): Maybe<EmailMessage> =
         map {  message ->
             EmailMessage.newBuilder()
                 .setSubject(message.subject)
