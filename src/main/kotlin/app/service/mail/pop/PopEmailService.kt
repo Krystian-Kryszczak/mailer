@@ -1,7 +1,7 @@
 package app.service.mail.pop
 
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.Maybe
 import javax.mail.Message
 
 interface PopEmailService {
@@ -9,5 +9,5 @@ interface PopEmailService {
     fun receiveMessages(folder: String? = null): Flowable<Message>
     fun receiveMessages(folder: String? = null, msgnums: IntArray): Flowable<Message>
     fun receiveMessages(folder: String? = null, start: Int, end: Int): Flowable<Message>
-    fun receiveMessage(folder: String? = null, msgnum: Int): Single<Message>
+    fun receiveMessage(folder: String? = null, msgnum: Int): Maybe<Message>
 }

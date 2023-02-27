@@ -4,6 +4,7 @@ import io.reactivex.rxjava3.core.Flowable
 import jakarta.inject.Singleton
 import javax.mail.*
 import io.micronaut.email.javamail.sender.SessionProvider
+import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 import java.util.Properties
 import javax.mail.search.SubjectTerm
@@ -60,11 +61,11 @@ class PopEmailServiceImpl(
             storeFolder -> Flowable.fromIterable(storeFolder.getMessages(start, end).asIterable())
         }
 
-    override fun receiveMessage(folder: String?, msgnum: Int): Single<Message> {
+    override fun receiveMessage(folder: String?, msgnum: Int): Maybe<Message> {
         return getConnectedStore()
             .getReadOnlyFolder(folder)
-            .flatMap {
-                storeFolder -> Single.just(storeFolder.getMessage(msgnum))
+            .flatMapMaybe {
+                storeFolder -> Maybe.just(storeFolder.getMessage(msgnum))
             }
     }
 }
